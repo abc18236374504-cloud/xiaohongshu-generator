@@ -42,28 +42,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function optimizeText(text) {
+        const paragraphs = text.split(/\\n/g).filter(p => p.trim() !== '');
+        const keywords = keywordsTextarea.value.trim();
+
         const emojiMap = {
-            "美食": "😋🍰🍦",
-            "旅行": "✈️🌍🗺️",
-            "美妆": "💄💅✨",
-            "穿搭": "👗👠👜",
-            "学习": "📚✍️💡",
-            "健身": "💪🏋️‍♀️🏃‍♀️",
-            "日常": "😊❤️🎉",
+            // 生活方式 & 情感
+            "OOTD": "👗👠👜", "穿搭": "👚👖👟", "日常": "☀️😊💖", "vlog": "📹✨", "好物": "🛍️🎁", "分享": "💖✨", "生活": "🏡🌿", "快乐": "😄🎉", "幸福": "🥰💕",
+            // 美食 & 饮品
+            "美食": "🍔🍕🍰", "探店": "📍🍜", "下午茶": "☕🍰", "咖啡": "☕✨", "甜品": "🍩🍪",
+            // 旅行 & 探索
+            "旅行": "✈️🌍🗺️", "旅游": "🏞️🚗", "攻略": "📝🗺️", "周末": "🤸‍♀️🎉", "假期": "🏖️☀️",
+            // 美妆 & 护肤
+            "美妆": "💄💅✨", "护肤": "🧴💧", "彩妆": "🎨💋", "口红": "💄❤️",
+            // 学习 & 成长
+            "学习": "📚✍️💡", "干货": "📌🔥", "读书": "📖🤓", "笔记": "📝✍️",
+            // 运动 & 健康
+            "健身": "💪🏋️‍♀️", "运动": "🏃‍♀️🤸‍♂️", "健康": "🥗🍎",
         };
 
-        let optimizedText = text;
+        let optimizedParagraphs = paragraphs.map((p, index) => {
+            let paragraphContent = p;
+            let addedEmoji = '';
 
-        // 添加表情
-        for (const keyword in emojiMap) {
-            if (text.includes(keyword)) {
-                optimizedText = optimizedText.replace(new RegExp(keyword, 'g'), `${keyword}${emojiMap[keyword][Math.floor(Math.random() * emojiMap[keyword].length)]}`);
+            // 尝试在段落开头添加表情
+            if (index === 0) {
+                for (const keyword in emojiMap) {
+                    if (keywords.includes(keyword) || p.includes(keyword)) {
+                        addedEmoji = emojiMap[keyword][Math.floor(Math.random() * emojiMap[keyword].length)];
+                        break;
+                    }
+                }
+                if (addedEmoji) {
+                    paragraphContent = `${addedEmoji} ${p}`;
+                }
+            } else { // 在段落结尾添加表情
+                 for (const keyword in emojiMap) {
+                    if (keywords.includes(keyword) || p.includes(keyword)) {
+                        addedEmoji = emojiMap[keyword][Math.floor(Math.random() * emojiMap[keyword].length)];
+                        break;
+                    }
+                }
+                 if (addedEmoji) {
+                    paragraphContent = `${p} ${addedEmoji}`;
+                }
             }
-        }
+            return paragraphContent;
+        });
 
-        // 添加热门标签
-        optimizedText += `\n\n#小红书爆款 #笔记灵感 #我的日常 #${keywordsTextarea.value.split(' ')[0]}分享`;
+        // 生成动态标签
+        const userKeywords = keywords.split(/[\s,，]+/).filter(k => k);
+        const fixedTags = ["#笔记灵感", "#小红书爆款", "#我的日常"];
+        const dynamicTags = userKeywords.map(k => `#${k}`);
+        const allTags = [...new Set([...fixedTags, ...dynamicTags])].join(' ');
 
-        return optimizedText;
+        return optimizedParagraphs.join('\n\n') + `\n\n${allTags}`;
     }
 });
