@@ -74,9 +74,23 @@ document.addEventListener('DOMContentLoaded', () => {
         setLoadingState(rewriteBtn, '获取中...');
 
         try {
-            // Step 1: Fetch article details
+            // Step 1: Resolve the short link to get the final URL
+            resultDiv.innerHTML = '<p>正在解析短链接...</p>';
+            const resolveResponse = await fetch(`https://api.52vmy.cn/api/other/url/expand?url=${encodeURIComponent(url)}`);
+            if (!resolveResponse.ok) {
+                throw new Error(`短链接解析失败，状态码: ${resolveResponse.status}`);
+            }
+            const resolveData = await resolveResponse.json();
+            if (resolveData.code !== 200 || !resolveData.data || !resolveData.data.long_url) {
+                 throw new Error('无法解析到有效的小红书长链接。');
+            }
+            const finalUrl = resolveData.data.long_url;
+
+            resultDiv.innerHTML = '<p>链接解析成功，正在获取文章内容...</p>';
+
+            // Step 2: Fetch article details with the final URL
             const token = "0c17bf1b49ca7333483ffcbebe201d4a"; // As provided
-            const detailApiUrl = `https://api.istero.com/resource/v1/red/book/detail/get?token=${token}&url=${encodeURIComponent(url)}`;
+            const detailApiUrl = `https://api.istero.com/resource/v1/red/book/detail/get?token=${token}&url=${encodeURIComponent(finalUrl)}`;
             const detailResponse = await fetch(detailApiUrl);
 
             if (!detailResponse.ok) {
