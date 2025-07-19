@@ -1,24 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
 
 :root {
-    --primary-color: #ff4081;
-    --secondary-color: #ff80ab;
-    --background-color: #fce4ec;
+    --primary-color: #4f46e5;
+    --background-color: #f8fafc;
     --card-background: #ffffff;
-    --text-color: #333;
-    --label-color: #555;
-    --border-color: #e0e0e0;
-    --shadow-color: rgba(0, 0, 0, 0.1);
+    --text-color: #374151;
+    --label-color: #6b7280;
+    --border-color: #e5e7eb;
+    --shadow-color: rgba(0, 0, 0, 0.05);
 }
 
 body {
     font-family: 'Noto Sans SC', sans-serif;
     background-color: var(--background-color);
     margin: 0;
-    padding: 20px;
+    padding: 40px 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     min-height: 100vh;
     box-sizing: border-box;
@@ -26,93 +24,107 @@ body {
 
 .main-container {
     display: flex;
-    gap: 30px;
+    gap: 40px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1100px;
 }
 
 .card {
     background-color: var(--card-background);
-    border-radius: 16px;
-    box-shadow: 0 8px 24px var(--shadow-color);
-    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -1px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    padding: 32px;
+}
+
+.input-card {
+    flex: 0 0 400px;
+}
+
+.result-card {
     flex: 1;
 }
 
 .card-header h2 {
-    margin: 0 0 25px 0;
-    color: var(--primary-color);
-    font-size: 1.8em;
-    text-align: center;
+    margin: 0 0 24px 0;
+    color: var(--text-color);
+    font-size: 1.5em;
+    font-weight: 700;
+    text-align: left;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     color: var(--label-color);
     font-weight: 500;
+    font-size: 0.9em;
 }
 
 .form-group input[type="text"],
 .form-group select {
     width: 100%;
-    padding: 12px;
+    padding: 10px 12px;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 6px;
     font-size: 1em;
     box-sizing: border-box;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .form-group input[type="text"]:focus,
 .form-group select:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(255, 64, 129, 0.2);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
 }
 
 #generate-btn {
     width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 12px;
+    background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 1.2em;
-    font-weight: 700;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: 500;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 10px;
+    transition: background-color 0.2s;
 }
 
 #generate-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(255, 64, 129, 0.3);
+    background-color: #4338ca;
 }
 
 .result-content {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    min-height: 400px;
+    background-color: var(--background-color);
+    padding: 16px;
+    border-radius: 6px;
+    min-height: 500px;
     white-space: pre-wrap;
     color: var(--text-color);
-    line-height: 1.7;
+    line-height: 1.8;
     border: 1px solid var(--border-color);
+    font-size: 0.95em;
 }
 
 footer {
-    margin-top: 30px;
-    color: #999;
+    margin-top: 40px;
+    color: #9ca3af;
     font-size: 0.9em;
     text-align: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .main-container {
         flex-direction: column;
+    }
+    .input-card {
+        flex: 1;
     }
 }
