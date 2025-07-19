@@ -74,35 +74,24 @@ document.addEventListener('DOMContentLoaded', () => {
         setLoadingState(rewriteBtn, '获取中...');
 
         try {
-            const corsProxy = 'https://proxy.cors.sh/';
-
-            // Step 1: Resolve the short link to get the final URL
-            resultDiv.innerHTML = '<p>正在解析短链接...</p>';
-            const resolveApiUrl = `https://api.52vmy.cn/api/other/url/expand?url=${encodeURIComponent(url)}`;
-            const resolveResponse = await fetch(`${corsProxy}${resolveApiUrl}`, {
-                headers: {
-                    'x-cors-api-key': 'temp_1234567890' // Replace with your actual key if needed
-                }
-            });
+            // Step 1: Resolve the short link to get the final URL using the new API
+            resultDiv.innerHTML = '<p>正在解析链接...</p>';
+            const resolveResponse = await fetch(`https://api.aa1.cn/redbook/ck/?url=${encodeURIComponent(url)}`);
             if (!resolveResponse.ok) {
-                throw new Error(`短链接解析失败，状态码: ${resolveResponse.status}`);
+                throw new Error(`链接解析失败，状态码: ${resolveResponse.status}`);
             }
             const resolveData = await resolveResponse.json();
-            if (resolveData.code !== 200 || !resolveData.data || !resolveData.data.long_url) {
-                 throw new Error('无法解析到有效的小红书长链接。');
+             if (resolveData.code !== "1" || !resolveData.url) {
+                 throw new Error(resolveData.msg || '无法解析到有效的小红书长链接。');
             }
-            const finalUrl = resolveData.data.long_url;
+            const finalUrl = resolveData.url;
 
             resultDiv.innerHTML = '<p>链接解析成功，正在获取文章内容...</p>';
 
             // Step 2: Fetch article details with the final URL
             const token = "0c17bf1b49ca7333483ffcbebe201d4a"; // As provided
             const detailApiUrl = `https://api.istero.com/resource/v1/red/book/detail/get?token=${token}&url=${encodeURIComponent(finalUrl)}`;
-            const detailResponse = await fetch(`${corsProxy}${detailApiUrl}`, {
-                headers: {
-                    'x-cors-api-key': 'temp_1234567890' // Replace with your actual key if needed
-                }
-            });
+            const detailResponse = await fetch(detailApiUrl);
 
             if (!detailResponse.ok) {
                 throw new Error(`获取文章详情失败，状态码: ${detailResponse.status}`);
@@ -146,13 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
     async function generateContent(prompt, button, buttonText) {
         setLoadingState(button, '生成中...');
         try {
-            const corsProxy = 'https://proxy.cors.sh/';
             const glmApiUrl = `https://api.52vmy.cn/api/chat/glm?msg=${encodeURIComponent(prompt)}`;
-            const response = await fetch(`${corsProxy}${glmApiUrl}`, {
-                headers: {
-                    'x-cors-api-key': 'temp_1234567890' // Replace with your actual key if needed
-                }
-            });
+            const response = await fetch(glmApiUrl);
             if (!response.ok) throw new Error(`AI 服务请求失败，状态码: ${response.status}`);
 
             const data = await response.json();
