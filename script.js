@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         generateBtn.style.opacity = '0.7';
 
         try {
-            const response = await fetch(`https://api.52vmy.cn/api/chat/spark?msg=${encodeURIComponent(keywords)}`);
+            const response = await fetch(`https://api.52vmy.cn/api/chat/glm?msg=${encodeURIComponent(keywords)}`);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
