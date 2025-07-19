@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
 `;
 
             resultDiv.innerHTML = '<p>获取成功，正在改写文章...</p>';
-            await generateContent(prompt, rewriteBtn, '🔁 一键改写文章');
+            await generateContent(rewritePrompt, rewriteBtn, '🔁 一键改写文章');
 
         } catch (error) {
             console.error('Rewrite process failed:', error);
