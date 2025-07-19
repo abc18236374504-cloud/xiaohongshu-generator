@@ -13,6 +13,41 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
 }
 
+function setLoadingState(button, text) {
+    button.disabled = true;
+    button.textContent = text;
+    button.style.cursor = 'not-allowed';
+    button.style.opacity = '0.7';
+}
+
+function setIdleState(button, text) {
+    button.disabled = false;
+    button.textContent = text;
+    button.style.cursor = 'pointer';
+    button.style.opacity = '1';
+}
+
+async function generateContent(prompt, button, buttonText, resultDiv) {
+    setLoadingState(button, '生成中...');
+    try {
+        const glmApiUrl = `https://api.52vmy.cn/api/chat/glm?msg=${encodeURIComponent(prompt)}`;
+        const response = await fetch(glmApiUrl);
+        if (!response.ok) throw new Error(`AI 服务请求失败，状态码: ${response.status}`);
+
+        const data = await response.json();
+        if (data.code === 200 && data.data && data.data.answer) {
+            resultDiv.innerHTML = `<p>${data.data.answer.replace(/\n/g, '<br>')}</p>`;
+        } else {
+            throw new Error(`AI 服务返回错误: ${data.msg || '未知错误'}`);
+        }
+    } catch (error) {
+        console.error('Content generation failed:', error);
+        resultDiv.innerHTML = `<p style="color: var(--primary-color);">生成失败：${error.message}</p>`;
+    } finally {
+        setIdleState(button, buttonText);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Activate the first tab by default
     document.querySelector('.tab-link').click();
@@ -47,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     - 结尾处要加上相关的、热门的 hashtags，至少包含3个。
 请开始你的创作吧！
 `;
-        await generateContent(prompt, generateBtn, '🚀 生成原创文案');
+        await generateContent(prompt, generateBtn, '🚀 生成原创文案', resultDiv);
     });
 
     // Article rewriting
@@ -122,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
 `;
 
             resultDiv.innerHTML = '<p>获取成功，正在改写文章...</p>';
-            await generateContent(rewritePrompt, rewriteBtn, '🔁 一键改写文章');
+            await generateContent(rewritePrompt, rewriteBtn, '🔁 一键改写文章', resultDiv);
 
         } catch (error) {
             console.error('Rewrite process failed:', error);
@@ -130,39 +165,4 @@ document.addEventListener('DOMContentLoaded', () => {
             setIdleState(rewriteBtn, '🔁 一键改写文章');
         }
     });
-
-    async function generateContent(prompt, button, buttonText) {
-        setLoadingState(button, '生成中...');
-        try {
-            const glmApiUrl = `https://api.52vmy.cn/api/chat/glm?msg=${encodeURIComponent(prompt)}`;
-            const response = await fetch(glmApiUrl);
-            if (!response.ok) throw new Error(`AI 服务请求失败，状态码: ${response.status}`);
-
-            const data = await response.json();
-            if (data.code === 200 && data.data && data.data.answer) {
-                resultDiv.innerHTML = `<p>${data.data.answer.replace(/\n/g, '<br>')}</p>`;
-            } else {
-                throw new Error(`AI 服务返回错误: ${data.msg || '未知错误'}`);
-            }
-        } catch (error) {
-            console.error('Content generation failed:', error);
-            resultDiv.innerHTML = `<p style="color: var(--primary-color);">生成失败：${error.message}</p>`;
-        } finally {
-            setIdleState(button, buttonText);
-        }
-    }
-
-    function setLoadingState(button, text) {
-        button.disabled = true;
-        button.textContent = text;
-        button.style.cursor = 'not-allowed';
-        button.style.opacity = '0.7';
-    }
-
-    function setIdleState(button, text) {
-        button.disabled = false;
-        button.textContent = text;
-        button.style.cursor = 'pointer';
-        button.style.opacity = '1';
-    }
 });
