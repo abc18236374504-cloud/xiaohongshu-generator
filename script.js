@@ -74,9 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
         setLoadingState(rewriteBtn, '获取中...');
 
         try {
+            const corsProxy = 'https://cors-anywhere.herokuapp.com/';
+
             // Step 1: Resolve the short link to get the final URL
             resultDiv.innerHTML = '<p>正在解析短链接...</p>';
-            const resolveResponse = await fetch(`https://api.52vmy.cn/api/other/url/expand?url=${encodeURIComponent(url)}`);
+            const resolveApiUrl = `https://api.52vmy.cn/api/other/url/expand?url=${encodeURIComponent(url)}`;
+            const resolveResponse = await fetch(corsProxy + resolveApiUrl);
             if (!resolveResponse.ok) {
                 throw new Error(`短链接解析失败，状态码: ${resolveResponse.status}`);
             }
@@ -91,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Step 2: Fetch article details with the final URL
             const token = "0c17bf1b49ca7333483ffcbebe201d4a"; // As provided
             const detailApiUrl = `https://api.istero.com/resource/v1/red/book/detail/get?token=${token}&url=${encodeURIComponent(finalUrl)}`;
-            const detailResponse = await fetch(detailApiUrl);
+            const detailResponse = await fetch(corsProxy + detailApiUrl);
 
             if (!detailResponse.ok) {
                 throw new Error(`获取文章详情失败，状态码: ${detailResponse.status}`);
@@ -135,7 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
     async function generateContent(prompt, button, buttonText) {
         setLoadingState(button, '生成中...');
         try {
-            const response = await fetch(`https://api.52vmy.cn/api/chat/glm?msg=${encodeURIComponent(prompt)}`);
+            const corsProxy = 'https://cors-anywhere.herokuapp.com/';
+            const glmApiUrl = `https://api.52vmy.cn/api/chat/glm?msg=${encodeURIComponent(prompt)}`;
+            const response = await fetch(corsProxy + glmApiUrl);
             if (!response.ok) throw new Error(`AI 服务请求失败，状态码: ${response.status}`);
 
             const data = await response.json();
