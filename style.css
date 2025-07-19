@@ -45,12 +45,39 @@ body {
     flex: 1;
 }
 
-.card-header h2 {
-    margin: 0 0 24px 0;
-    color: var(--text-color);
-    font-size: 1.5em;
-    font-weight: 700;
-    text-align: left;
+.tabs {
+    display: flex;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-link {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: var(--label-color);
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-bottom-color 0.2s;
+}
+
+.tab-link:hover {
+    color: var(--primary-color);
+}
+
+.tab-link.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
 }
 
 .form-group {

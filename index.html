@@ -9,10 +9,12 @@
 <body>
     <div class="main-container">
         <div class="card input-card">
-            <div class="card-header">
-                <h2>✍️ 创作你的爆款文案</h2>
+            <div class="tabs">
+                <button class="tab-link active" onclick="openTab(event, 'original')">✍️ 原创文案</button>
+                <button class="tab-link" onclick="openTab(event, 'rewrite')">🔁 文章改写</button>
             </div>
-            <div class="card-body">
+
+            <div id="original" class="tab-content active">
                 <div class="form-group">
                     <label for="topic">核心主题</label>
                     <input type="text" id="topic" placeholder="例如：夏日防晒、周末探店">
@@ -43,7 +45,24 @@
                         <option value="600字左右">600字左右</option>
                     </select>
                 </div>
-                <button id="generate-btn">🚀 生成文案</button>
+                <button id="generate-btn">🚀 生成原创文案</button>
+            </div>
+
+            <div id="rewrite" class="tab-content">
+                 <div class="form-group">
+                    <label for="xhs-url">小红书文章链接</label>
+                    <input type="text" id="xhs-url" placeholder="粘贴完整的小红书文章链接">
+                </div>
+                <div class="form-group">
+                    <label for="rewrite-tone-style">选择改写后的语气风格</label>
+                    <select id="rewrite-tone-style">
+                        <option value="活泼可爱">活泼可爱</option>
+                        <option value="温柔知性">温柔知性</option>
+                        <option value="搞笑幽默">搞笑幽默</option>
+                        <option value="专业严谨">专业严谨</option>
+                    </select>
+                </div>
+                <button id="rewrite-btn">🔁 一键改写文章</button>
             </div>
         </div>
 
