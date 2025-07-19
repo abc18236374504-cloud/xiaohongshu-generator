@@ -1,114 +1,118 @@
-@import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+
+:root {
+    --primary-color: #ff4081;
+    --secondary-color: #ff80ab;
+    --background-color: #fce4ec;
+    --card-background: #ffffff;
+    --text-color: #333;
+    --label-color: #555;
+    --border-color: #e0e0e0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
 
 body {
-    font-family: 'ZCOOL XiaoWei', sans-serif;
-    background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
+    font-family: 'Noto Sans SC', sans-serif;
+    background-color: var(--background-color);
     margin: 0;
     padding: 20px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     box-sizing: border-box;
 }
 
-.container {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 40px;
-    border-radius: 25px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+.main-container {
+    display: flex;
+    gap: 30px;
     width: 100%;
-    max-width: 700px;
+    max-width: 1200px;
+}
+
+.card {
+    background-color: var(--card-background);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    padding: 30px;
+    flex: 1;
+}
+
+.card-header h2 {
+    margin: 0 0 25px 0;
+    color: var(--primary-color);
+    font-size: 1.8em;
     text-align: center;
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-header h1 {
-    font-family: 'ZCOOL XiaoWei', sans-serif;
-    color: #d85a5a;
-    font-size: 3em;
-    margin-bottom: 15px;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+.form-group {
+    margin-bottom: 20px;
 }
 
-header p {
-    color: #777;
-    font-size: 1.2em;
-    margin-bottom: 40px;
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--label-color);
+    font-weight: 500;
 }
 
-.input-area {
-    margin-bottom: 40px;
-    position: relative;
+.form-group input[type="text"],
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-#keywords {
-    width: calc(100% - 40px);
-    padding: 20px;
-    border: none;
-    border-radius: 15px;
-    font-size: 1.1em;
-    min-height: 120px;
-    resize: vertical;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.7);
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-}
-
-#keywords:focus {
+.form-group input[type="text"]:focus,
+.form-group select:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(252, 182, 159, 0.5), inset 0 2px 4px rgba(0,0,0,0.1);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 64, 129, 0.2);
 }
 
 #generate-btn {
-    background: linear-gradient(135deg, #fcb69f, #ffecd2);
-    color: #fff;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
     border: none;
-    padding: 18px 40px;
-    border-radius: 50px;
-    font-size: 1.3em;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: 700;
     cursor: pointer;
-    margin-top: 20px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 15px rgba(252, 182, 159, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 #generate-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 20px rgba(252, 182, 159, 0.6);
-}
-
-#generate-btn:active {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(252, 182, 159, 0.5);
-}
-
-.result-area h2 {
-    color: #d85a5a;
-    font-size: 2em;
-    margin-bottom: 25px;
-    border-top: 1px solid rgba(0,0,0,0.05);
-    padding-top: 40px;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(255, 64, 129, 0.3);
 }
 
 .result-content {
-    background: #fff;
-    padding: 25px;
-    border-radius: 15px;
-    text-align: left;
-    min-height: 180px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    min-height: 400px;
     white-space: pre-wrap;
-    color: #444;
-    line-height: 1.8;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    color: var(--text-color);
+    line-height: 1.7;
+    border: 1px solid var(--border-color);
 }
 
 footer {
-    margin-top: 40px;
-    color: #bba;
-    font-size: 1em;
+    margin-top: 30px;
+    color: #999;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+    }
 }
