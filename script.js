@@ -52,23 +52,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Article rewriting
     rewriteBtn.addEventListener('click', async () => {
-        const originalTitleInput = document.getElementById('original-title');
-        const originalContentInput = document.getElementById('original-content');
+        const xhsUrlInput = document.getElementById('xhs-url');
         const rewriteToneStyleSelect = document.getElementById('rewrite-tone-style');
 
-        const title = originalTitleInput.value.trim();
-        const content = originalContentInput.value.trim();
-
-        if (!title || !content) {
-            resultDiv.innerHTML = '<p style="color: var(--primary-color);">请输入原文的标题和内容！</p>';
+        const userInput = xhsUrlInput.value.trim();
+        if (!userInput) {
+            resultDiv.innerHTML = '<p style="color: var(--primary-color);">请输入小红书文章链接或分享口令！</p>';
             return;
         }
 
-        const rewritePrompt = `
+        // Extract URL from sharing command
+        const urlRegex = /https?:\/\/[^\s]+/g;
+        const urls = userInput.match(urlRegex);
+        if (!urls || urls.length === 0) {
+            resultDiv.innerHTML = '<p style="color: var(--primary-color);">无法从输入中找到有效的链接！</p>';
+            return;
+        }
+        const url = urls[0];
+
+        setLoadingState(rewriteBtn, '处理中...');
+
+        try {
+            // Step 1: Resolve the short link to get the final URL using the new API
+            resultDiv.innerHTML = '<p>正在解析链接...</p>';
+            const resolveResponse = await fetch(`https://api.aa1.cn/redbook/ck/?url=${encodeURIComponent(url)}`);
+            if (!resolveResponse.ok) {
+                throw new Error(`链接解析失败，状态码: ${resolveResponse.status}`);
+            }
+            const resolveData = await resolveResponse.json();
+             if (resolveData.code !== "1" || !resolveData.url) {
+                 throw new Error(resolveData.msg || '无法解析到有效的小红书长链接。');
+            }
+            const finalUrl = resolveData.url;
+
+            resultDiv.innerHTML = '<p>链接解析成功，正在获取文章内容...</p>';
+
+            // Step 2: Fetch article details with the final URL and the new token
+            const token = "lyTwlgAQvMfskcnoJjnDYhdbvqUKgrto"; // New token provided by user
+            const detailApiUrl = `https://api.istero.com/resource/v1/red/book/detail/get?token=${token}&url=${encodeURIComponent(finalUrl)}`;
+            const detailResponse = await fetch(detailApiUrl);
+
+            if (!detailResponse.ok) {
+                throw new Error(`获取文章详情失败，状态码: ${detailResponse.status}`);
+            }
+            const detailData = await detailResponse.json();
+
+            if (detailData.code !== 200 || !detailData.data) {
+                throw new Error(`API 返回错误: ${detailData.message || '无法获取文章内容'}`);
+            }
+
+            const articleTitle = detailData.data.title;
+            const articleContent = detailData.data.desc;
+
+            // Step 3: Generate rewriting prompt
+            const rewritePrompt = `
 请你扮演一位资深的小红书博主，对我提供的以下文章进行二次创作和优化，使其更具吸引力和爆款潜质。
 **这是原始文章：**
-- **标题：** ${title}
-- **内容：** ${content}
+- **标题：** ${articleTitle}
+- **内容：** ${articleContent}
 
 **请严格遵守以下改写要求：**
 1.  **核心思想不变**：保持原文的核心观点和信息。
@@ -80,7 +121,14 @@ document.addEventListener('DOMContentLoaded', () => {
 请输出改写后的完整文案。
 `;
 
-        await generateContent(rewritePrompt, rewriteBtn, '🔁 一键改写文章');
+            resultDiv.innerHTML = '<p>获取成功，正在改写文章...</p>';
+            await generateContent(rewritePrompt, rewriteBtn, '🔁 一键改写文章');
+
+        } catch (error) {
+            console.error('Rewrite process failed:', error);
+            resultDiv.innerHTML = `<p style="color: var(--primary-color);">处理失败：${error.message}</p>`;
+            setIdleState(rewriteBtn, '🔁 一键改写文章');
+        }
     });
 
     async function generateContent(prompt, button, buttonText) {
