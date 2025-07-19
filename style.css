@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
 
 body {
-    font-family: 'Noto Sans SC', sans-serif;
-    background: linear-gradient(135deg, #fce38a, #f38181);
+    font-family: 'ZCOOL XiaoWei', sans-serif;
+    background: linear-gradient(to right, #ffecd2 0%, #fcb69f 100%);
     margin: 0;
     padding: 20px;
     display: flex;
@@ -13,89 +13,102 @@ body {
 }
 
 .container {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
     text-align: center;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 header h1 {
-    color: #333;
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    font-weight: 700;
+    font-family: 'ZCOOL XiaoWei', sans-serif;
+    color: #d85a5a;
+    font-size: 3em;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 header p {
-    color: #666;
-    font-size: 1.1em;
-    margin-bottom: 30px;
+    color: #777;
+    font-size: 1.2em;
+    margin-bottom: 40px;
 }
 
 .input-area {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    position: relative;
 }
 
 #keywords {
-    width: calc(100% - 22px);
-    padding: 15px;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    font-size: 1em;
-    min-height: 100px;
+    width: calc(100% - 40px);
+    padding: 20px;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1em;
+    min-height: 120px;
     resize: vertical;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
 }
 
 #keywords:focus {
-    border-color: #f38181;
     outline: none;
+    box-shadow: 0 0 0 3px rgba(252, 182, 159, 0.5), inset 0 2px 4px rgba(0,0,0,0.1);
 }
 
 #generate-btn {
-    background: linear-gradient(135deg, #f38181, #fce38a);
-    color: white;
+    background: linear-gradient(135deg, #fcb69f, #ffecd2);
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
     border: none;
-    padding: 15px 30px;
+    padding: 18px 40px;
     border-radius: 50px;
-    font-size: 1.2em;
+    font-size: 1.3em;
     cursor: pointer;
     margin-top: 20px;
-    font-weight: 500;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 15px rgba(252, 182, 159, 0.4);
 }
 
 #generate-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(252, 182, 159, 0.6);
+}
+
+#generate-btn:active {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(252, 182, 159, 0.5);
 }
 
 .result-area h2 {
-    color: #333;
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    border-top: 1px solid #eee;
-    padding-top: 30px;
+    color: #d85a5a;
+    font-size: 2em;
+    margin-bottom: 25px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding-top: 40px;
 }
 
 .result-content {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
     text-align: left;
-    min-height: 150px;
+    min-height: 180px;
     white-space: pre-wrap;
-    color: #555;
-    line-height: 1.6;
+    color: #444;
+    line-height: 1.8;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 footer {
-    margin-top: 30px;
-    color: #aaa;
-    font-size: 0.9em;
+    margin-top: 40px;
+    color: #bba;
+    font-size: 1em;
 }
