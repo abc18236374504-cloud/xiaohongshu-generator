@@ -55,11 +55,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const xhsUrlInput = document.getElementById('xhs-url');
         const rewriteToneStyleSelect = document.getElementById('rewrite-tone-style');
 
-        const url = xhsUrlInput.value.trim();
-        if (!url) {
-            resultDiv.innerHTML = '<p style="color: var(--primary-color);">请输入小红书文章链接！</p>';
+        const userInput = xhsUrlInput.value.trim();
+        if (!userInput) {
+            resultDiv.innerHTML = '<p style="color: var(--primary-color);">请输入小红书文章链接或分享口令！</p>';
             return;
         }
+
+        // Extract URL from sharing command
+        const urlRegex = /https?:\/\/[^\s]+/g;
+        const urls = userInput.match(urlRegex);
+        if (!urls || urls.length === 0) {
+            resultDiv.innerHTML = '<p style="color: var(--primary-color);">无法从输入中找到有效的链接！</p>';
+            return;
+        }
+        const url = urls[0];
 
         resultDiv.innerHTML = '<p>正在获取文章内容...</p>';
         setLoadingState(rewriteBtn, '获取中...');
