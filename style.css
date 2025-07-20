@@ -1,20 +1,21 @@
+/* 魅族 Flyme 风格 UI by Jules */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
 
 :root {
-    --primary-color: #4f46e5;
-    --background-color: #f8fafc;
+    --primary-color: #1890ff; /* 柔和的蓝色 */
+    --background-color: #f5f7fa; /* 更为柔和的背景色 */
     --card-background: #ffffff;
-    --text-color: #374151;
-    --label-color: #6b7280;
-    --border-color: #e5e7eb;
-    --shadow-color: rgba(0, 0, 0, 0.05);
+    --text-color: #303133;
+    --label-color: #606266;
+    --border-color: #e4e7ed;
+    --shadow-color: rgba(0, 0, 0, 0.04);
 }
 
 body {
-    font-family: 'Noto Sans SC', sans-serif;
+    font-family: 'Noto Sans SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: var(--background-color);
     margin: 0;
-    padding: 40px 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -24,52 +25,59 @@ body {
 
 .main-container {
     display: flex;
-    gap: 40px;
+    gap: 20px;
     width: 100%;
-    max-width: 1100px;
+    max-width: 1200px; /* 稍微加宽以获得更好的布局 */
 }
 
 .card {
     background-color: var(--card-background);
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -1px var(--shadow-color);
-    border: 1px solid var(--border-color);
+    border-radius: 16px; /* 更大的圆角 */
+    box-shadow: 0 8px 20px var(--shadow-color); /* 更柔和、弥散的阴影 */
+    border: none;
     padding: 32px;
 }
 
 .input-card {
-    flex: 0 0 400px;
+    flex: 0 0 420px;
 }
 
 .result-card {
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .tabs {
     display: flex;
-    margin-bottom: 24px;
-    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 28px;
+    background-color: #f0f2f5;
+    border-radius: 20px; /* 胶囊形状 */
+    padding: 4px;
 }
 
 .tab-link {
-    padding: 10px 20px;
+    flex: 1;
+    padding: 10px;
     cursor: pointer;
     border: none;
     background-color: transparent;
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: 500;
     color: var(--label-color);
-    border-bottom: 3px solid transparent;
-    transition: color 0.2s, border-bottom-color 0.2s;
+    border-radius: 18px; /* 内部圆角 */
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    text-align: center;
 }
 
 .tab-link:hover {
-    color: var(--primary-color);
+    background-color: #e4e7ed;
 }
 
 .tab-link.active {
-    color: var(--primary-color);
-    border-bottom-color: var(--primary-color);
+    color: #fff;
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.2);
 }
 
 .tab-content {
@@ -81,12 +89,12 @@ body {
 }
 
 .form-group {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     color: var(--label-color);
     font-weight: 500;
     font-size: 0.9em;
@@ -96,17 +104,19 @@ body {
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 10px 12px;
+    padding: 12px 14px;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1em;
     box-sizing: border-box;
     transition: border-color 0.2s, box-shadow 0.2s;
     font-family: inherit;
+    background-color: #fdfdfd;
 }
 
 .form-group textarea {
     resize: vertical;
+    min-height: 100px;
 }
 
 .form-group input[type="text"]:focus,
@@ -114,42 +124,64 @@ body {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.15);
 }
 
-#generate-btn {
+button#generate-btn, button#rewrite-btn {
     width: 100%;
-    padding: 12px;
-    background-color: var(--primary-color);
+    padding: 14px;
+    background: linear-gradient(135deg, #1890ff, #40a9ff);
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1.1em;
     font-weight: 500;
     cursor: pointer;
     margin-top: 10px;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(24, 144, 255, 0.2);
 }
 
-#generate-btn:hover {
-    background-color: #4338ca;
+button#generate-btn:hover, button#rewrite-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(24, 144, 255, 0.3);
+}
+
+.card-header {
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 16px;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 1.3em;
+    color: var(--text-color);
+}
+
+.card-body {
+    flex: 1;
+    overflow-y: auto;
 }
 
 .result-content {
-    background-color: var(--background-color);
-    padding: 16px;
-    border-radius: 6px;
-    min-height: 500px;
+    background-color: transparent;
+    padding: 0;
+    min-height: 450px; /* 调整高度 */
     white-space: pre-wrap;
     color: var(--text-color);
-    line-height: 1.8;
-    border: 1px solid var(--border-color);
-    font-size: 0.95em;
+    line-height: 1.9;
+    border: none;
+    font-size: 1em;
+}
+
+.result-content p {
+    margin-top: 0;
 }
 
 footer {
     margin-top: 40px;
-    color: #9ca3af;
+    color: #aab2bd;
     font-size: 0.9em;
     text-align: center;
 }
