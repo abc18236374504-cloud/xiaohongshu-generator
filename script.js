@@ -71,9 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const prompt = `
 请你扮演一位资深的小红书博主，为我创作一篇关于“${topic}”的爆款文案。
 请严格遵守以下要求：
-1.  **笔记类型**：${noteTypeSelect.value}
-2.  **字数要求**：${wordCountSelect.value}
-3.  **语气风格**：${toneStyleSelect.value}
+1.  **笔记类型**：${noteTypeSelect.selected || noteTypeSelect.value}
+2.  **字数要求**：${wordCountSelect.selected || wordCountSelect.value}
+3.  **语气风格**：${toneStyleSelect.selected || toneStyleSelect.value}
 4.  **内容要求**：
     - 开头要吸引人，能够迅速抓住读者眼球。
     - 内容结构清晰，有逻辑，易于阅读。
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 **请严格遵守以下改写要求：**
 1.  **核心思想不变**：保持原文的核心观点和信息。
-2.  **语气风格**：请使用 **${rewriteToneStyleSelect.value}** 的风格进行改写。
+2.  **语气风格**：请使用 **${rewriteToneStyleSelect.selected || rewriteToneStyleSelect.value}** 的风格进行改写。
 3.  **结构优化**：优化文章结构，使其更清晰、更易读。
 4.  **内容润色**：用更生动、更有趣的语言进行表达，多使用 emoji。
 5.  **增强吸引力**：添加引人入胜的开头和结尾。

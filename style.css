@@ -1,18 +1,15 @@
-/* 魅族 Flyme 风格 UI by Jules */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+/* 手绘风格 UI by Jules */
+@import url('https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&display=swap');
 
 :root {
-    --primary-color: #1890ff; /* 柔和的蓝色 */
-    --background-color: #f5f7fa; /* 更为柔和的背景色 */
-    --card-background: #ffffff;
-    --text-color: #303133;
-    --label-color: #606266;
-    --border-color: #e4e7ed;
-    --shadow-color: rgba(0, 0, 0, 0.04);
+    --background-color: #fefcf9;
+    --text-color: #3a3a3a;
+    --primary-color: #ff6b6b;
+    --border-color: #3a3a3a;
 }
 
 body {
-    font-family: 'Noto Sans SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Zhi Mang Xing', cursive;
     background-color: var(--background-color);
     margin: 0;
     padding: 20px;
@@ -21,21 +18,19 @@ body {
     align-items: center;
     min-height: 100vh;
     box-sizing: border-box;
+    color: var(--text-color);
+    font-size: 1.2em;
 }
 
 .main-container {
     display: flex;
     gap: 20px;
     width: 100%;
-    max-width: 1200px; /* 稍微加宽以获得更好的布局 */
+    max-width: 1200px;
 }
 
 .card {
-    background-color: var(--card-background);
-    border-radius: 16px; /* 更大的圆角 */
-    box-shadow: 0 8px 20px var(--shadow-color); /* 更柔和、弥散的阴影 */
-    border: none;
-    padding: 32px;
+    padding: 20px;
 }
 
 .input-card {
@@ -51,41 +46,24 @@ body {
 .tabs {
     display: flex;
     margin-bottom: 28px;
-    background-color: #f0f2f5;
-    border-radius: 20px; /* 胶囊形状 */
-    padding: 4px;
+    gap: 10px;
 }
 
 .tab-link {
     flex: 1;
     padding: 10px;
     cursor: pointer;
-    border: none;
-    background-color: transparent;
-    font-size: 1em;
-    font-weight: 500;
-    color: var(--label-color);
-    border-radius: 18px; /* 内部圆角 */
-    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    text-align: center;
-}
-
-.tab-link:hover {
-    background-color: #e4e7ed;
+    font-size: 1.1em;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #fff;
+    transition: all 0.2s;
 }
 
 .tab-link.active {
-    color: #fff;
     background-color: var(--primary-color);
-    box-shadow: 0 2px 8px rgba(24, 144, 255, 0.2);
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
+    color: #fff;
+    border-color: var(--primary-color);
 }
 
 .form-group {
@@ -95,94 +73,23 @@ body {
 .form-group label {
     display: block;
     margin-bottom: 8px;
-    color: var(--label-color);
-    font-weight: 500;
-    font-size: 0.9em;
-}
-
-.form-group input[type="text"],
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-size: 1em;
-    box-sizing: border-box;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    font-family: inherit;
-    background-color: #fdfdfd;
-}
-
-.form-group textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-
-.form-group input[type="text"]:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.15);
-}
-
-button#generate-btn, button#rewrite-btn {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #1890ff, #40a9ff);
-    color: white;
-    border: none;
-    border-radius: 8px;
     font-size: 1.1em;
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(24, 144, 255, 0.2);
-}
-
-button#generate-btn:hover, button#rewrite-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(24, 144, 255, 0.3);
-}
-
-.card-header {
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 16px;
-}
-
-.card-header h2 {
-    margin: 0;
-    font-size: 1.3em;
-    color: var(--text-color);
-}
-
-.card-body {
-    flex: 1;
-    overflow-y: auto;
 }
 
 .result-content {
-    background-color: transparent;
-    padding: 0;
-    min-height: 450px; /* 调整高度 */
+    flex: 1;
+    padding: 20px;
     white-space: pre-wrap;
-    color: var(--text-color);
     line-height: 1.9;
-    border: none;
-    font-size: 1em;
-}
-
-.result-content p {
-    margin-top: 0;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #fff;
 }
 
 footer {
     margin-top: 40px;
-    color: #aab2bd;
-    font-size: 0.9em;
+    color: #aaa;
+    font-size: 1em;
     text-align: center;
 }
 

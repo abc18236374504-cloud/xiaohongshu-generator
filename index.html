@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小红书爆款文案生成器</title>
+    <title>小红书爆款文案生成器 - 手绘版</title>
     <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/wired-elements/dist/wired-elements.js"></script>
 </head>
 <body>
     <div class="main-container">
-        <div class="card input-card">
+        <wired-card class="card input-card">
             <div class="tabs">
                 <button class="tab-link active" onclick="openTab(event, 'original')">✍️ 原创文案</button>
                 <button class="tab-link" onclick="openTab(event, 'rewrite')">🔁 文章改写</button>
@@ -17,72 +18,68 @@
             <div id="original" class="tab-content active">
                 <div class="form-group">
                     <label for="topic">核心主题</label>
-                    <input type="text" id="topic" placeholder="例如：夏日防晒、周末探店">
+                    <wired-input placeholder="例如：夏日防晒、周末探店" id="topic"></wired-input>
                 </div>
                 <div class="form-group">
                     <label for="note-type">笔记类型</label>
-                    <select id="note-type">
-                        <option value="种草安利">种草安利</option>
-                        <option value="干货教程">干货教程</option>
-                        <option value="探店评测">探店评测</option>
-                        <option value="日常Vlog">日常Vlog</option>
-                    </select>
+                    <wired-combo id="note-type">
+                        <wired-item value="种草安利">种草安利</wired-item>
+                        <wired-item value="干货教程">干货教程</wired-item>
+                        <wired-item value="探店评测">探店评测</wired-item>
+                        <wired-item value="日常Vlog">日常Vlog</wired-item>
+                    </wired-combo>
                 </div>
                 <div class="form-group">
                     <label for="tone-style">语气风格</label>
-                    <select id="tone-style">
-                        <option value="活泼可爱">活泼可爱</option>
-                        <option value="温柔知性">温柔知性</option>
-                        <option value="搞笑幽默">搞笑幽默</option>
-                        <option value="专业严谨">专业严谨</option>
-                    </select>
+                     <wired-combo id="tone-style">
+                        <wired-item value="活泼可爱">活泼可爱</wired-item>
+                        <wired-item value="温柔知性">温柔知性</wired-item>
+                        <wired-item value="搞笑幽默">搞笑幽默</wired-item>
+                        <wired-item value="专业严谨">专业严谨</wired-item>
+                    </wired-combo>
                 </div>
                  <div class="form-group">
                     <label for="word-count">字数要求</label>
-                    <select id="word-count">
-                        <option value="200字左右">200字左右</option>
-                        <option value="400字左右">400字左右</option>
-                        <option value="600字左右">600字左右</option>
-                    </select>
+                    <wired-combo id="word-count">
+                        <wired-item value="200字左右">200字左右</wired-item>
+                        <wired-item value="400字左右">400字左右</wired-item>
+                        <wired-item value="600字左右">600字左右</wired-item>
+                    </wired-combo>
                 </div>
-                <button id="generate-btn">🚀 生成原创文案</button>
+                <wired-button id="generate-btn">🚀 生成原创文案</wired-button>
             </div>
 
             <div id="rewrite" class="tab-content">
                  <div class="form-group">
                     <label for="original-title">原文标题</label>
-                    <input type="text" id="original-title" placeholder="请粘贴原文的标题">
+                    <wired-input placeholder="请粘贴原文的标题" id="original-title"></wired-input>
                 </div>
                 <div class="form-group">
                     <label for="original-content">原文内容</label>
-                    <textarea id="original-content" placeholder="请粘贴原文的完整内容" rows="8"></textarea>
+                    <wired-textarea placeholder="请粘贴原文的完整内容" rows="6" id="original-content"></wired-textarea>
                 </div>
                 <div class="form-group">
                     <label for="rewrite-tone-style">选择改写后的语气风格</label>
-                    <select id="rewrite-tone-style">
-                        <option value="活泼可爱">活泼可爱</option>
-                        <option value="温柔知性">温柔知性</option>
-                        <option value="搞笑幽默">搞笑幽默</option>
-                        <option value="专业严谨">专业严谨</option>
-                    </select>
+                    <wired-combo id="rewrite-tone-style">
+                        <wired-item value="活泼可爱">活泼可爱</wired-item>
+                        <wired-item value="温柔知性">温柔知性</wired-item>
+                        <wired-item value="搞笑幽默">搞笑幽默</wired-item>
+                        <wired-item value="专业严谨">专业严谨</wired-item>
+                    </wired-combo>
                 </div>
-                <button id="rewrite-btn">🔁 一键改写文章</button>
+                <wired-button id="rewrite-btn">🔁 一键改写文章</wired-button>
             </div>
-        </div>
+        </wired-card>
 
-        <div class="card result-card">
-            <div class="card-header">
-                <h2>✨ 生成结果</h2>
+        <wired-card class="card result-card">
+             <h2>✨ 生成结果</h2>
+            <div id="result" class="result-content">
+                <p>这里将显示生成的文案...</p>
             </div>
-            <div class="card-body">
-                <div id="result" class="result-content">
-                    <p>这里将显示生成的文案...</p>
-                </div>
-            </div>
-        </div>
+        </wired-card>
     </div>
     <footer>
-        <p>Powered by Jules</p>
+        <p>Powered by Jules with ❤️</p>
     </footer>
     <script src="script.js"></script>
 </body>
